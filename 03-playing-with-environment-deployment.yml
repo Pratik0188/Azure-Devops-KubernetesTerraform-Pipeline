@@ -9,9 +9,16 @@ strategy:
       operatingSystem: 'macos-latest'
 
 pool:
-  vmImage: $(opertaingSystem)
+  vmImage: $(operatingSystem)
 
-steps:
-- script: echo Running on the Operating system!
-  displayName: 'Run a one-line script'
-
+jobs:
+- job: ExampleJob
+  strategy:
+    matrix:
+      linux:
+        operatingSystem: 'ubuntu-latest'
+      mac:
+        operatingSystem: 'macos-latest'
+  steps:
+  - script: echo Running on the Operating system!
+    displayName: 'Run a one-line script'
