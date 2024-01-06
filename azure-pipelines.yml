@@ -19,7 +19,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'pratik188-dockerhub'
+        containerRegistry: 'pratik188-docker-hub'
         repository: 'pratik188/currency-exchange-devops'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
