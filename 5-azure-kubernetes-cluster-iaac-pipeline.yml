@@ -1,31 +1,25 @@
 trigger:
-- main
-
+  - main
 pool:
   vmImage: ubuntu-latest
-
 steps:
-- script: echo k*s Terraform Azure!
-  displayName: 'Run a one-line script'
-
-- task: DownloadSecureFile@1
-name: publickey
-  inputs:
-    secureFile: 'public_rsa.pub'
-
-- task: TerraformCLI@2
-  inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
-    backendType: 'azurerm'
-    backendServiceArm: 'Azure subscription 1(68b98a10-e526-45b6-9d9f-be03a50ba117)'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: 'terraform-backend-resource-group'
-    backendAzureRmResourceGroupLocation: 'westeurope'
-    backendAzureRmStorageAccountName: 'storagepratik018'
-    backendAzureRmContainerName: 'storagepratik018container'
-    backendAzureRmKey: 'kubernetes-dev.tfstate'
-    allowTelemetryCollection: true
-    
-       
+  - script: echo "k8s Terraform Azure!"
+    displayName: 'Run a one-line script'
+  - task: DownloadSecureFile@1
+    name: publickey
+    inputs:
+      secureFile: 'public_rsa.pub'
+  - task: TerraformCLI@2
+    inputs:
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+      commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+      backendType: 'azurerm'
+      backendServiceArm: 'Azure subscription 1(68b98a10-e526-45b6-9d9f-be03a50ba117)'
+      ensureBackend: true
+      backendAzureRmResourceGroupName: 'terraform-backend-resource-group'
+      backendAzureRmResourceGroupLocation: 'westeurope'
+      backendAzureRmStorageAccountName: 'storagepratik018'
+      backendAzureRmContainerName: 'storagepratik018container'
+      backendAzureRmKey: 'kubernetes-dev.tfstate'
+      allowTelemetryCollection: true
